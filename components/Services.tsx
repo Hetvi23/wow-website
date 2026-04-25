@@ -80,10 +80,10 @@ export default function Services() {
           className="text-center mb-20"
         >
           <span className="text-[#E26304] font-bold tracking-[0.4em] uppercase text-xs">
-            The WOW Experience
+            The Auto Avengers Experience
           </span>
-          <h2 className="text-5xl md:text-6xl font-black text-white tracking-tighter uppercase mt-4">
-            WOW Premium Care
+          <h2 className="text-5xl md:text-6xl font-black text-white tracking-wide uppercase mt-4">
+            Auto Avengers Premium Care
           </h2>
           <div className="h-1 w-24 bg-[#E26304] mx-auto mt-6" />
         </motion.div>

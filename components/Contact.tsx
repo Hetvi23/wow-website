@@ -36,7 +36,7 @@ export default function Contact() {
           {/* Form Side */}
           <div className="p-10 md:p-16 space-y-8">
             <div>
-              <h2 className="text-3xl font-black text-[#3A115F] uppercase tracking-tighter">
+              <h2 className="text-3xl font-black text-[#3A115F] uppercase tracking-wide">
                 Get a Quick Callback
               </h2>
               <p className="text-gray-500 mt-2">
@@ -47,12 +47,12 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
-                  Full Name
+                  Name
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Rahul Sharma"
+                  placeholder="Name"
                   className="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-[#E26304] outline-none transition-all font-semibold rounded-t-lg"
                 />
               </div>
@@ -73,7 +73,7 @@ export default function Contact() {
                 </label>
                 <input
                   type="text"
-                  placeholder="e.g. Toyota Camry"
+                  placeholder="Car model"
                   className="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-[#E26304] outline-none transition-all font-semibold rounded-t-lg"
                 />
               </div>
@@ -81,7 +81,8 @@ export default function Contact() {
                 <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
                   Service Required
                 </label>
-                <select className="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-[#E26304] outline-none transition-all font-semibold appearance-none rounded-t-lg">
+                <select defaultValue="" className="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-[#E26304] outline-none transition-all font-semibold appearance-none rounded-t-lg">
+                  <option value="" disabled>Service required</option>
                   <option>Routine Maintenance</option>
                   <option>Oil Change</option>
                   <option>Brake / Battery Service</option>
@@ -118,7 +119,7 @@ export default function Contact() {
               alt="Mechanic on call"
             />
             <div className="absolute inset-0 bg-[#3A115F]/70 flex flex-col items-center justify-center p-12 text-center">
-              <p className="text-4xl font-black text-white tracking-tighter leading-tight mb-4">
+              <p className="text-4xl font-black text-white tracking-wide leading-tight mb-4">
                 Emergency?
                 <br />
                 Call Now

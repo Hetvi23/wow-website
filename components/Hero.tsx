@@ -41,10 +41,10 @@ export default function Hero() {
           </motion.div>
 
           {/* Headline */}
-          <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.9] tracking-tighter uppercase">
-            Workshop on{" "}
+          <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.9] tracking-wide uppercase">
+            Drive with{" "}
             <br />
-            <span className="gradient-text">Wheels</span>
+            <span className="gradient-text">wow</span>
           </h1>
 
           {/* Subtext */}

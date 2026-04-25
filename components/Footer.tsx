@@ -5,7 +5,7 @@ import { Phone, ChevronRight } from "lucide-react";
 const navLinks = [
   { label: "About Us", href: "#about" },
   { label: "Premium Care", href: "#services" },
-  { label: "Why Choose WOW", href: "#why-us" },
+  { label: "Drive with wow", href: "#why-us" },
   { label: "Request Callback", href: "#contact" },
 ];
 
@@ -32,10 +32,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex flex-col leading-none mb-6">
-              <span className="text-4xl font-black text-white italic tracking-tighter">WOW</span>
-              <span className="text-[11px] text-[#E26304] font-bold tracking-[0.22em] uppercase mt-1">
-                Workshop on Wheels
-              </span>
+              <span className="text-4xl font-black text-white italic tracking-wide">Auto Avengers</span>
             </div>
             <p className="text-gray-500 text-sm leading-relaxed max-w-sm">
               Redefining the automotive experience through doorstep delivery of
@@ -53,12 +50,12 @@ export default function Footer() {
             </div>
             <div className="mt-4">
               <a
-                href="https://www.drivewithwow.com"
+                href="https://www.autoavengers.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#8852A7] text-sm font-semibold hover:text-[#E26304] transition-colors duration-200"
               >
-                www.drivewithwow.com
+                www.autoavengers.com
               </a>
             </div>
           </div>
@@ -107,7 +104,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <p className="text-gray-600 text-[11px] font-black uppercase tracking-[0.2em]">
-            © 2025 Workshop on Wheels. Professional Mobile Automotive Maintenance.
+            © 2026 Auto Avengers. Professional Mobile Automotive Maintenance.
           </p>
           <div className="flex space-x-3">
             {socials.map((s) => (

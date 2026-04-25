@@ -52,14 +52,14 @@ export default function About() {
               <span className="text-[#E26304] font-bold text-xs uppercase tracking-[0.3em]">
                 Innovation in Motion
               </span>
-              <h2 className="text-[#3A115F] text-4xl md:text-5xl font-black tracking-tighter leading-tight mt-3 uppercase">
+              <h2 className="text-[#3A115F] text-4xl md:text-5xl font-black tracking-wide leading-tight mt-3 uppercase">
                 Reliable Car Care{" "}
                 <span className="text-[#8852A7]">Delivered To You.</span>
               </h2>
             </div>
 
             <p className="text-gray-600 leading-relaxed text-lg">
-              Workshop on Wheels is an innovative, customer-centric mobile car repair
+              Auto Avengers is an innovative, customer-centric mobile car repair
               and maintenance service designed to provide convenience, efficiency, and
               reliability to vehicle owners. We eliminate the need for time-consuming
               visits to traditional workshops by delivering expert automotive solutions
@@ -76,7 +76,7 @@ export default function About() {
                   <div className="bg-[#3A115F] p-2.5 rounded-lg">
                     <Zap size={18} className="text-[#E26304]" />
                   </div>
-                  <h4 className="font-black text-[#3A115F] uppercase tracking-tighter border-b-2 border-[#E26304]">
+                  <h4 className="font-black text-[#3A115F] uppercase tracking-wide border-b-2 border-[#E26304]">
                     Mission
                   </h4>
                 </div>
@@ -92,7 +92,7 @@ export default function About() {
                   <div className="bg-[#87B21D] p-2.5 rounded-lg">
                     <Eye size={18} className="text-white" />
                   </div>
-                  <h4 className="font-black text-[#3A115F] uppercase tracking-tighter border-b-2 border-[#87B21D]">
+                  <h4 className="font-black text-[#3A115F] uppercase tracking-wide border-b-2 border-[#87B21D]">
                     Vision
                   </h4>
                 </div>

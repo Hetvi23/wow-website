@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
-const plusJakarta = Plus_Jakarta_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Workshop on Wheels | Mobile Car Care",
     description: "Professional mobile car repair & maintenance at your doorstep. Anytime. Anywhere.",
-    url: "https://www.drivewithwow.com",
-    siteName: "Workshop on Wheels",
+    url: "https://www.autoavengers.com",
+    siteName: "Auto Avengers",
     type: "website",
   },
 };
@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={plusJakarta.className}>{children}</body>
+      <body className={inter.className}>{children}</body>
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-XXXXXXXXXX"} />
     </html>
   );

@@ -27,11 +27,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* Logo */}
         <a href="#" className="flex flex-col leading-none group">
-          <span className="text-2xl font-black text-white tracking-tighter italic group-hover:text-[#E26304] transition-colors duration-300">
-            WOW
-          </span>
-          <span className="text-[10px] text-[#E26304] font-bold tracking-[0.22em] uppercase">
-            Workshop on Wheels
+          <span className="text-2xl font-black text-white tracking-wide italic group-hover:text-[#E26304] transition-colors duration-300">
+            Auto Avengers
           </span>
         </a>
 

@@ -33,9 +33,9 @@ export default function WhyUs() {
             <span className="text-[#E26304] font-bold tracking-[0.3em] uppercase text-xs">
               Unmatched Reliability
             </span>
-            <h2 className="text-[#3A115F] text-5xl md:text-6xl font-black mt-2 uppercase tracking-tighter">
+            <h2 className="text-[#3A115F] text-5xl md:text-6xl font-black mt-2 uppercase tracking-wide">
               Why Choose{" "}
-              <span className="text-[#E26304]">WOW?</span>
+              <span className="text-[#E26304]">Auto Avengers?</span>
             </h2>
             <div className="w-20 h-2 bg-[#87B21D] mt-4" />
           </motion.div>
