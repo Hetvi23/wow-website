@@ -31,8 +31,12 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="flex flex-col leading-none mb-6">
-              <span className="text-4xl font-black text-white italic tracking-wide">Auto Avengers</span>
+            <div className="mb-6 inline-block">
+              <img 
+                src="/images/wow-images/AA__Logo_PNG.png" 
+                alt="Auto Avengers Logo" 
+                className="h-14 md:h-16 w-auto object-contain"
+              />
             </div>
             <p className="text-gray-500 text-sm leading-relaxed max-w-sm">
               Redefining the automotive experience through doorstep delivery of

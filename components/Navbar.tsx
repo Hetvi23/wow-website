@@ -26,10 +26,12 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex flex-col leading-none group">
-          <span className="text-2xl font-black text-white tracking-wide italic group-hover:text-[#E26304] transition-colors duration-300">
-            Auto Avengers
-          </span>
+        <a href="#" className="flex items-center group">
+          <img 
+            src="/images/wow-images/AA__Logo_PNG.png" 
+            alt="Auto Avengers Logo" 
+            className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+          />
         </a>
 
         {/* Desktop Nav */}
