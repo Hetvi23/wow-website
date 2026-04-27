@@ -106,23 +106,10 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="border-t border-white/5 pt-8 flex justify-center pb-4">
           <p className="text-gray-600 text-[11px] font-black uppercase tracking-[0.2em]">
-            © 2026 Auto Avengers. Professional Mobile Automotive Maintenance.
+            © 2026 Auto Avengers
           </p>
-          <div className="flex space-x-3">
-            {socials.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 border border-white/10 flex items-center justify-center text-xs font-black text-gray-500 hover:border-[#E26304] hover:text-white transition-all duration-200 cursor-pointer"
-              >
-                {s.label}
-              </a>
-            ))}
-          </div>
         </div>
       </div>
     </footer>
