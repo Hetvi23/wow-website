@@ -127,7 +127,7 @@ export default function Services() {
                   <div className="w-11 h-11 bg-[#3A115F] flex items-center justify-center text-[#E26304] group-hover:bg-[#E26304] group-hover:text-white transition-all duration-300 flex-shrink-0">
                     <service.Icon size={20} />
                   </div>
-                  <h3 className="text-base font-black text-white uppercase tracking-tight group-hover:text-[#E26304] transition-colors duration-300 leading-tight">
+                  <h3 className="text-base font-black text-white uppercase tracking-wide md:tracking-tight group-hover:text-[#E26304] transition-colors duration-300 leading-snug">
                     {service.title}
                   </h3>
                 </div>
