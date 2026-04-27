@@ -16,6 +16,9 @@ const reasons = [
   "Post-service quality assurance check",
   "Guaranteed workmanship warranty",
   "City-wide coverage, expanding nationally",
+  "Certified & Experienced Technicians",
+  "Advanced Diagnostic Tools",
+  "Transparent Pricing",
 ];
 
 export default function WhyUs() {
