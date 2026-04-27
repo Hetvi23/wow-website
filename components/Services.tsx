@@ -138,26 +138,7 @@ export default function Services() {
           ))}
         </motion.div>
 
-        {/* Bottom perks bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-4"
-        >
-          {["Certified & Experienced Technicians", "Advanced Diagnostic Tools", "Genuine Parts & Transparent Pricing"].map(
-            (perk, i) => (
-              <div
-                key={i}
-                className="flex items-center space-x-3 bg-white/5 p-5 border-l-4 border-[#87B21D] hover:bg-white/10 transition-colors duration-200"
-              >
-                <div className="w-2 h-2 bg-[#87B21D] rounded-full flex-shrink-0" />
-                <span className="text-white font-bold text-sm">{perk}</span>
-              </div>
-            )
-          )}
-        </motion.div>
+
       </div>
     </section>
   );

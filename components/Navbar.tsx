@@ -26,11 +26,11 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center group">
+        <a href="#" className="flex items-center group bg-white px-4 py-2 rounded-2xl shadow-xl transition-transform duration-300 hover:scale-105">
           <img 
             src="/images/wow-images/AA__Logo_PNG.png" 
             alt="Auto Avengers Logo" 
-            className="h-16 md:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            className="h-16 md:h-20 w-auto object-contain"
           />
         </a>
 

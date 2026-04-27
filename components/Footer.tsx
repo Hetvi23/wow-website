@@ -31,7 +31,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="mb-6 inline-block">
+            <div className="mb-6 inline-block bg-white p-4 rounded-3xl shadow-xl">
               <img 
                 src="/images/wow-images/AA__Logo_PNG.png" 
                 alt="Auto Avengers Logo" 
