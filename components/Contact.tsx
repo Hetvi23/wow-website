@@ -10,10 +10,12 @@ export default function Contact() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    const form = e.target as HTMLFormElement;
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
+      form.reset();
       setTimeout(() => setSubmitted(false), 5000);
     }, 1200);
   }
