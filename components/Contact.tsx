@@ -100,6 +100,7 @@ export default function Contact() {
                 <input
                   name="car_model"
                   type="text"
+                  required
                   placeholder="Car model"
                   className="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-[#E26304] outline-none transition-all font-semibold rounded-t-lg"
                 />
@@ -108,7 +109,7 @@ export default function Contact() {
                 <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
                   Service Required
                 </label>
-                <select name="service_required" defaultValue="" className="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-[#E26304] outline-none transition-all font-semibold appearance-none rounded-t-lg">
+                <select name="service_required" required defaultValue="" className="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-[#E26304] outline-none transition-all font-semibold appearance-none rounded-t-lg">
                   <option value="" disabled>Service required</option>
                   <option>Routine Maintenance</option>
                   <option>Oil Change</option>
