@@ -16,6 +16,11 @@ export default function Contact() {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
+    // Ensure phone number has country code for ERPNext validation
+    if (typeof data.phone === 'string' && !data.phone.startsWith('+')) {
+      data.phone = `+91${data.phone.trim()}`;
+    }
+
     try {
       const response = await fetch('/api/lead', {
         method: 'POST',
