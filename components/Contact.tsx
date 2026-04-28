@@ -8,16 +8,33 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     setLoading(true);
-    setTimeout(() => {
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      
+      if (response.ok) {
+        setSubmitted(true);
+        form.reset();
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        console.error('Failed to submit form');
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+    } finally {
       setLoading(false);
-      setSubmitted(true);
-      form.reset();
-      setTimeout(() => setSubmitted(false), 5000);
-    }, 1200);
+    }
   }
 
   return (
@@ -52,6 +69,7 @@ export default function Contact() {
                   Name
                 </label>
                 <input
+                  name="lead_name"
                   type="text"
                   required
                   placeholder="Name"
@@ -63,6 +81,7 @@ export default function Contact() {
                   Phone Number
                 </label>
                 <input
+                  name="phone"
                   type="tel"
                   required
                   placeholder="+91 00000 00000"
@@ -74,6 +93,7 @@ export default function Contact() {
                   Car Model
                 </label>
                 <input
+                  name="car_model"
                   type="text"
                   placeholder="Car model"
                   className="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-[#E26304] outline-none transition-all font-semibold rounded-t-lg"
@@ -83,7 +103,7 @@ export default function Contact() {
                 <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
                   Service Required
                 </label>
-                <select defaultValue="" className="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-[#E26304] outline-none transition-all font-semibold appearance-none rounded-t-lg">
+                <select name="service_required" defaultValue="" className="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-[#E26304] outline-none transition-all font-semibold appearance-none rounded-t-lg">
                   <option value="" disabled>Service required</option>
                   <option>Routine Maintenance</option>
                   <option>Oil Change</option>
@@ -97,6 +117,7 @@ export default function Contact() {
                   Message
                 </label>
                 <textarea
+                  name="message"
                   rows={3}
                   placeholder="Tell us more about the issue..."
                   className="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-[#E26304] outline-none transition-all font-semibold resize-none rounded-t-lg"
