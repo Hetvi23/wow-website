@@ -10,12 +10,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Workshop on Wheels | Your Car Our Care Anytime Anywhere",
+  title: "Auto Avengers | Premium Mobile Automotive Care",
   description:
-    "WOW - Workshop on Wheels is an innovative mobile car repair and maintenance service. Expert automotive solutions delivered directly to your doorstep, 24/7.",
-  keywords: "mobile car repair, doorstep car service, WOW workshop, car maintenance, roadside assistance",
+    "Auto Avengers is an innovative mobile car repair and maintenance service. Expert automotive solutions delivered directly to your doorstep, 24/7.",
+  keywords: "Auto Avengers, mobile car repair, doorstep car service, car maintenance, roadside assistance",
   openGraph: {
-    title: "Workshop on Wheels | Mobile Car Care",
+    title: "Auto Avengers | Mobile Car Care",
     description: "Professional mobile car repair & maintenance at your doorstep. Anytime. Anywhere.",
     url: "https://www.autoavengers.com",
     siteName: "Auto Avengers",
