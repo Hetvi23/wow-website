@@ -33,7 +33,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="mb-6 inline-block bg-white p-4 rounded-3xl shadow-xl">
               <img 
-                src="/images/wow-images/AA__Logo_PNG.png" 
+                src="/images/wow-images/Auto_Avengers_Logo.png" 
                 alt="Auto Avengers Logo" 
                 className="h-20 md:h-24 w-auto object-contain"
               />
