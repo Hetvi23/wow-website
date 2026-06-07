@@ -35,12 +35,13 @@ export default async function ProductDetail({ params }: Props) {
 
   const img = erpFileUrl(p.image);
   const price = p.price_label || (p.price ? `₹${p.price.toLocaleString("en-IN")}` : "On Request");
+  const description = p.description || p.short_description;
 
   return (
     <main>
       <Navbar />
 
-      <section className="bg-[#1D1D1C] pt-32 pb-12">
+      <section className="bg-[#1D1D1C] pt-32 pb-14 angled-clip">
         <div className="max-w-5xl mx-auto px-6">
           <Link
             href="/products"
@@ -48,38 +49,40 @@ export default async function ProductDetail({ params }: Props) {
           >
             <ArrowLeft size={16} /> All Products
           </Link>
+          {p.category && (
+            <span className="block text-[#E26304] font-bold tracking-[0.25em] uppercase text-xs mt-8">
+              {p.category}
+            </span>
+          )}
+          <h1 className="text-white text-4xl md:text-5xl font-black mt-3 leading-tight">
+            {p.product_name}
+          </h1>
         </div>
       </section>
 
       <section className="max-w-5xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-2 gap-12 items-start">
-          <div className="bg-[#3A115F]/5 rounded-2xl overflow-hidden">
+          <div className="bg-[#3A115F]/5 rounded-2xl overflow-hidden border border-black/5">
             {img ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={img} alt={p.product_name} className="w-full object-cover" />
             ) : (
-              <div className="aspect-square flex items-center justify-center text-[#3A115F]/30 font-black text-4xl">
+              <div className="aspect-[4/3] flex items-center justify-center text-[#3A115F]/25 font-black text-3xl tracking-widest">
                 WOW
               </div>
             )}
           </div>
 
           <div>
-            {p.category && (
-              <span className="text-[#E26304] font-bold tracking-[0.25em] uppercase text-xs">
-                {p.category}
-              </span>
-            )}
-            <h1 className="text-[#1D1D1C] text-4xl font-black mt-2">{p.product_name}</h1>
-            <div className="mt-4 text-[#3A115F] font-black text-3xl">{price}</div>
-            {p.short_description && (
-              <p className="text-[#1D1D1C]/70 mt-5 text-lg">{p.short_description}</p>
-            )}
+            <span className="text-[#E26304] font-bold tracking-[0.2em] uppercase text-[11px]">
+              Price
+            </span>
+            <div className="mt-1 text-[#3A115F] font-black text-4xl">{price}</div>
 
-            {p.description && (
+            {description && (
               <div
                 className="blog-content mt-8"
-                dangerouslySetInnerHTML={{ __html: p.description }}
+                dangerouslySetInnerHTML={{ __html: description }}
               />
             )}
 
@@ -89,6 +92,10 @@ export default async function ProductDetail({ params }: Props) {
             >
               Book This Service
             </Link>
+
+            <p className="mt-6 text-[#1D1D1C]/45 text-sm">
+              Prefer to talk first? Call us and our team will guide you.
+            </p>
           </div>
         </div>
       </section>
