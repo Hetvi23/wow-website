@@ -6,8 +6,10 @@ const BASE_URL =
   process.env.ERPNEXT_BASE_URL?.replace(/\/$/, "") ||
   "https://care.autoavengers.com";
 
-// Revalidate cached content every 5 minutes (ISR-style).
-const REVALIDATE_SECONDS = 300;
+// Revalidate cached content every 60s (ISR-style) so admin changes in ERPNext
+// (publishing a post, ticking "Show on Website", adding a banner/offer) show up
+// on the site within about a minute.
+const REVALIDATE_SECONDS = 60;
 
 export type BlogPostSummary = {
   slug: string;
