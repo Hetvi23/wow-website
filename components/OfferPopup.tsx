@@ -91,6 +91,7 @@ export default function OfferPopup({
               {offer.cta_label && (
                 <a
                   href={offer.cta_link || "/booking"}
+                  onClick={close}
                   className="inline-block mt-6 bg-[#E26304] text-white px-8 py-3 font-bold text-sm uppercase tracking-widest hover:brightness-110 transition-all rounded-sm"
                 >
                   {offer.cta_label}
