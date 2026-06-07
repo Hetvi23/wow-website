@@ -25,7 +25,7 @@ export default async function BookingPage() {
     <main>
       <Navbar />
 
-      <section className="bg-[#1D1D1C] pt-36 pb-24 angled-clip">
+      <section className="bg-[#1D1D1C] pt-32 pb-16 angled-clip">
         <div className="max-w-7xl mx-auto px-6">
           <span className="text-[#E26304] font-bold tracking-[0.3em] uppercase text-xs">
             Book Online

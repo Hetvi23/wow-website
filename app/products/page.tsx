@@ -32,7 +32,7 @@ export default async function ProductsPage({
     <main>
       <Navbar />
 
-      <section className="bg-[#1D1D1C] pt-36 pb-20 angled-clip">
+      <section className="bg-[#1D1D1C] pt-32 pb-12 angled-clip">
         <div className="max-w-7xl mx-auto px-6">
           <span className="text-[#E26304] font-bold tracking-[0.3em] uppercase text-xs">
             Premium Care
@@ -48,7 +48,7 @@ export default async function ProductsPage({
       </section>
 
       {categories.length > 0 && (
-        <div className="max-w-7xl mx-auto px-6 -mt-6 mb-12 flex flex-wrap gap-3">
+        <div className="max-w-7xl mx-auto px-6 mt-10 mb-10 flex flex-wrap gap-3">
           <Link
             href="/products"
             className={`px-5 py-2 rounded-full text-sm font-bold uppercase tracking-wider transition-colors ${
