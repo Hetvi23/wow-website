@@ -60,7 +60,7 @@ export default async function BlogPostPage({ params }: Props) {
 
       <article>
         {/* Header */}
-        <header className="bg-[#1D1D1C] pt-36 pb-16">
+        <header className="bg-[#1D1D1C] pt-32 pb-10">
           <div className="max-w-3xl mx-auto px-6">
             <Link
               href="/blog"
@@ -69,14 +69,14 @@ export default async function BlogPostPage({ params }: Props) {
               <ArrowLeft size={16} /> Back to Blog
             </Link>
             {post.category && (
-              <span className="block text-[#E26304] font-bold tracking-[0.25em] uppercase text-xs mt-8">
+              <span className="block text-[#E26304] font-bold tracking-[0.25em] uppercase text-xs mt-6">
                 {post.category}
               </span>
             )}
-            <h1 className="text-white text-4xl md:text-5xl font-black mt-3 leading-tight">
+            <h1 className="text-white text-3xl md:text-4xl font-black mt-2 leading-tight">
               {post.title}
             </h1>
-            <div className="mt-6 flex items-center gap-4 text-white/50 text-sm font-semibold uppercase tracking-wider">
+            <div className="mt-4 flex items-center gap-4 text-white/50 text-sm font-semibold uppercase tracking-wider">
               <span>{post.author || "Auto Avengers"}</span>
               {post.published_on && (
                 <>
@@ -90,12 +90,12 @@ export default async function BlogPostPage({ params }: Props) {
 
         {/* Cover image */}
         {image && (
-          <div className="max-w-4xl mx-auto px-6 -mt-8">
+          <div className="max-w-4xl mx-auto px-6 mt-10">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={image}
               alt={post.title}
-              className="w-full rounded-2xl shadow-2xl object-cover max-h-[480px]"
+              className="w-full rounded-2xl shadow-lg object-cover max-h-[440px]"
             />
           </div>
         )}
