@@ -1,12 +1,16 @@
 "use client";
 
-import { Phone, ChevronRight } from "lucide-react";
+import { Phone, ChevronRight, Mail, MapPin } from "lucide-react";
+import type { SiteSettings } from "@/lib/erpnext";
 
 const navLinks = [
-  { label: "About Us", href: "#about" },
-  { label: "Premium Care", href: "#services" },
-  { label: "Drive with wow", href: "#why-us" },
-  { label: "Request Callback", href: "#contact" },
+  { label: "About Us", href: "/#about" },
+  { label: "Premium Care", href: "/#services" },
+  { label: "Products", href: "/products" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Blog", href: "/blog" },
+  { label: "Locate Us", href: "/locate-us" },
+  { label: "Book Service", href: "/booking" },
 ];
 
 const services = [
@@ -18,13 +22,18 @@ const services = [
   "Fleet Services",
 ];
 
-const socials = [
-  { label: "FB", href: "https://facebook.com" },
-  { label: "IG", href: "https://instagram.com" },
-  { label: "LI", href: "https://linkedin.com" },
-];
+export default function Footer({ settings }: { settings?: SiteSettings }) {
+  const phone = settings?.phone || "+91 96386 10000";
+  const email = settings?.email || "Infoautoavengers@gmail.com";
+  const address = settings?.address || "Surat, Gujarat, India";
+  const socials = [
+    { label: "FB", href: settings?.facebook_url },
+    { label: "IG", href: settings?.instagram_url },
+    { label: "IN", href: settings?.linkedin_url },
+    { label: "YT", href: settings?.youtube_url },
+    { label: "X", href: settings?.twitter_url },
+  ].filter((s) => s.href);
 
-export default function Footer() {
   return (
     <footer className="bg-[#1D1D1C] border-t border-white/5 pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6">
@@ -33,7 +42,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="mb-6 inline-block bg-white p-2 rounded-2xl shadow-xl overflow-hidden">
               <img 
-                src="/images/wow-images/Auto_Avengers_New_Logo.jpg" 
+                src="/images/wow-images/Auto_Avengers_Logo_2026.jpeg" 
                 alt="Auto Avengers Logo" 
                 className="h-20 md:h-24 w-auto object-contain rounded-xl"
               />
@@ -43,14 +52,25 @@ export default function Footer() {
               professional repair and maintenance services. Expert automotive
               solutions, certified mechanics, wherever you are.
             </p>
-            <div className="mt-8 flex items-center space-x-4">
+            <div className="mt-8 space-y-3">
               <a
-                href="tel:+919638610000"
+                href={`tel:${phone.replace(/\s/g, "")}`}
                 className="flex items-center text-white font-bold text-sm hover:text-[#E26304] transition-colors duration-200"
               >
                 <Phone size={16} className="mr-2 text-[#E26304]" />
-                +91 96386 10000
+                {phone}
               </a>
+              <a
+                href={`mailto:${email}`}
+                className="flex items-center text-white/80 font-semibold text-sm hover:text-[#E26304] transition-colors duration-200"
+              >
+                <Mail size={16} className="mr-2 text-[#E26304]" />
+                {email}
+              </a>
+              <p className="flex items-center text-white/80 font-semibold text-sm">
+                <MapPin size={16} className="mr-2 text-[#E26304]" />
+                {address}
+              </p>
             </div>
             <div className="mt-4">
               <a
@@ -62,6 +82,22 @@ export default function Footer() {
                 www.autoavengers.com
               </a>
             </div>
+            {socials.length > 0 && (
+              <div className="mt-6 flex items-center gap-3">
+                {socials.map(({ label, href }) => (
+                  <a
+                    key={label}
+                    href={href as string}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white/5 hover:bg-[#E26304] text-white/70 hover:text-white w-10 h-10 rounded-full flex items-center justify-center text-xs font-black transition-colors"
+                    aria-label={`${label} link`}
+                  >
+                    {label}
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Navigation */}

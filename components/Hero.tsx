@@ -3,13 +3,28 @@
 import { motion } from "framer-motion";
 import { Navigation, ChevronRight } from "lucide-react";
 
-export default function Hero() {
+export type HeroBanner = {
+  badge_text: string | null;
+  heading: string | null;
+  subheading: string | null;
+  cta_label: string | null;
+  cta_link: string | null;
+  image: string | null;
+};
+
+export default function Hero({ banner }: { banner?: HeroBanner | null }) {
+  const bgImage = banner?.image || "/images/wow-images/Website_Banner.png";
+  const badge = banner?.badge_text || "Super Hero For Your Car";
+  const ctaLabel = banner?.cta_label || "Book Service";
+  const ctaLink = banner?.cta_link || "/#contact";
+
   return (
     <section className="relative h-[95vh] flex items-center overflow-hidden angled-clip">
       {/* Background Image + Overlay */}
       <div className="absolute inset-0 z-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/wow-images/Website_Banner.png"
+          src={bgImage}
           className="w-full h-full object-cover scale-105"
           alt="Modern Car Workshop"
         />
@@ -36,23 +51,31 @@ export default function Hero() {
           >
             <Navigation size={13} className="text-white badge-pulse" />
             <span className="text-white text-[11px] font-bold tracking-[0.22em] uppercase italic">
-              Your Car Our Care Anytime Anywhere
+              {badge}
             </span>
           </motion.div>
 
           {/* Headline */}
-          <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.9] tracking-wide uppercase">
-            Drive with{" "}
-            <br />
-            <span className="gradient-text">wow</span>
-          </h1>
+          {banner?.heading ? (
+            <h1 className="text-5xl md:text-7xl font-black text-white leading-[0.95] tracking-wide uppercase">
+              {banner.heading}
+            </h1>
+          ) : (
+            <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.9] tracking-wide uppercase">
+              Drive with{" "}
+              <br />
+              <span className="gradient-text">wow</span>
+            </h1>
+          )}
 
           {/* Subtext */}
           <p className="text-xl md:text-2xl text-white/75 font-light max-w-xl leading-relaxed">
-            Mobile Car Repair &amp; Maintenance at Your Doorstep.
-            <span className="block mt-2 text-base font-semibold text-white/60 italic">
-              &ldquo;Innovation meets automotive excellence&rdquo;
-            </span>
+            {banner?.subheading || "Mobile Car Repair & Maintenance at Your Doorstep."}
+            {!banner?.subheading && (
+              <span className="block mt-2 text-base font-semibold text-white/60 italic">
+                &ldquo;Innovation meets automotive excellence&rdquo;
+              </span>
+            )}
           </p>
 
           {/* CTAs */}
@@ -63,10 +86,10 @@ export default function Hero() {
             className="flex flex-col sm:flex-row gap-4 pt-2"
           >
             <a
-              href="#contact"
+              href={ctaLink}
               className="group inline-flex items-center justify-center px-10 py-5 bg-[#E26304] text-white font-black text-sm uppercase tracking-widest shadow-2xl shadow-orange-900/30 hover:brightness-110 hover:-translate-y-1 transition-all duration-300"
             >
-              Book Service
+              {ctaLabel}
               <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
             </a>
             <a

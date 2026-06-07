@@ -4,18 +4,24 @@ import About from "@/components/About";
 import Services from "@/components/Services";
 import WhyUs from "@/components/WhyUs";
 import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+import SiteFooter from "@/components/SiteFooter";
+import { getBanners, erpFileUrl } from "@/lib/erpnext";
 
-export default function Home() {
+export default async function Home() {
+  const heroBanners = await getBanners("Hero");
+  const banner = heroBanners[0]
+    ? { ...heroBanners[0], image: erpFileUrl(heroBanners[0].image) }
+    : null;
+
   return (
     <main>
       <Navbar />
-      <Hero />
+      <Hero banner={banner} />
       <About />
       <Services />
       <WhyUs />
       <Contact />
-      <Footer />
+      <SiteFooter />
     </main>
   );
 }

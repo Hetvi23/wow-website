@@ -1,10 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-const navLinks = ["About", "Services", "Why Us", "Contact"];
+const navLinks: { label: string; href: string }[] = [
+  { label: "About", href: "/#about" },
+  { label: "Services", href: "/#services" },
+  { label: "Products", href: "/products" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Blog", href: "/blog" },
+  { label: "Locate Us", href: "/locate-us" },
+];
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,31 +34,31 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center group bg-white p-1 rounded-xl shadow-xl transition-transform duration-300 hover:scale-105">
-          <img 
-            src="/images/wow-images/Auto_Avengers_New_Logo.jpg" 
-            alt="Auto Avengers Logo" 
+        <Link href="/" className="flex items-center group bg-white p-1 rounded-xl shadow-xl transition-transform duration-300 hover:scale-105">
+          <img
+            src="/images/wow-images/Auto_Avengers_Logo_2026.jpeg"
+            alt="Auto Avengers Logo"
             className="h-16 md:h-20 w-auto object-contain rounded-lg"
           />
-        </a>
+        </Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-8">
           {navLinks.map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase().replace(" ", "-")}`}
+            <Link
+              key={item.label}
+              href={item.href}
               className="text-sm font-semibold text-white/70 hover:text-[#E26304] transition-colors duration-200 uppercase tracking-widest"
             >
-              {item}
-            </a>
+              {item.label}
+            </Link>
           ))}
-          <a
-            href="#contact"
+          <Link
+            href="/booking"
             className="bg-[#E26304] text-white px-6 py-2.5 font-bold text-sm uppercase tracking-widest hover:brightness-110 hover:scale-105 transition-all duration-200 shadow-lg shadow-orange-900/20"
           >
             Book Service
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Toggle */}
@@ -74,22 +82,22 @@ export default function Navbar() {
             className="md:hidden bg-[#1D1D1C]/98 backdrop-blur-xl border-t border-white/10 px-6 py-6 space-y-5"
           >
             {navLinks.map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase().replace(" ", "-")}`}
+              <Link
+                key={item.label}
+                href={item.href}
                 onClick={() => setIsMenuOpen(false)}
                 className="block text-sm font-bold text-white/80 hover:text-[#E26304] uppercase tracking-widest transition-colors"
               >
-                {item}
-              </a>
+                {item.label}
+              </Link>
             ))}
-            <a
-              href="#contact"
+            <Link
+              href="/booking"
               onClick={() => setIsMenuOpen(false)}
               className="block text-center bg-[#E26304] text-white py-3 font-bold uppercase tracking-widest text-sm"
             >
               Book Service
-            </a>
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>

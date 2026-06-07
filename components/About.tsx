@@ -108,6 +108,37 @@ export default function About() {
             </p>
           </motion.div>
         </div>
+
+        {/* Founder */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+          className="mt-24 bg-[#3A115F] rounded-3xl p-10 md:p-14 text-white relative overflow-hidden"
+        >
+          <div className="absolute -top-20 -right-20 w-80 h-80 bg-[#E26304]/20 rounded-full blur-[120px] pointer-events-none" />
+          <div className="relative z-10 max-w-4xl">
+            <span className="text-[#87B21D] font-bold text-xs uppercase tracking-[0.3em]">
+              Our Founder
+            </span>
+            <h3 className="text-3xl md:text-4xl font-black mt-3 uppercase tracking-wide">
+              Mr. Jignesh Dixit
+            </h3>
+            <p className="text-white/70 leading-relaxed text-lg mt-5">
+              Auto Avengers is founded by Mr. Jignesh Dixit, a seasoned automobile
+              professional with over <strong className="text-white">25 years</strong> of
+              hands-on experience in automotive servicing, operations, and customer
+              management. He established and scaled <strong className="text-white">Auto
+              Solution</strong>, a multi-brand car workshop running profitably since 2010,
+              and his tenure with <strong className="text-white">Ford Motor Company</strong>{" "}
+              shaped his understanding of structured operations and service standards.
+              Driven by a vision to eliminate the trust deficit in car servicing, he leads
+              Auto Avengers with a mission to bring transparency, reliability, and
+              convenience to every car owner&apos;s doorstep.
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

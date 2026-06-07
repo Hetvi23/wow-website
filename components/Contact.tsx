@@ -22,10 +22,10 @@ export default function Contact() {
     }
 
     try {
-      const response = await fetch('/api/lead', {
+      const response = await fetch('/api/webform', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        body: JSON.stringify({ web_form: 'wow-contact', data })
       });
       
       if (response.ok) {

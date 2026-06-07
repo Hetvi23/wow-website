@@ -124,3 +124,56 @@ body {
 .bounce-y {
   animation: bounce-y 1.5s ease-in-out infinite;
 }
+
+/* Rendered blog post body (HTML from ERPNext Text Editor) */
+.blog-content {
+  color: #2a2a28;
+  font-size: 1.075rem;
+  line-height: 1.85;
+}
+.blog-content h2 {
+  color: #3A115F;
+  font-size: 1.85rem;
+  font-weight: 800;
+  margin-top: 2.5rem;
+  line-height: 1.25;
+}
+.blog-content h3 {
+  color: #3A115F;
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-top: 2rem;
+}
+.blog-content p { margin-top: 1.25rem; }
+.blog-content a {
+  color: #E26304;
+  font-weight: 600;
+  text-decoration: underline;
+}
+.blog-content ul,
+.blog-content ol {
+  padding-left: 1.5rem;
+  margin-top: 1.25rem;
+}
+.blog-content ul { list-style: disc; }
+.blog-content ol { list-style: decimal; }
+.blog-content li { margin-top: 0.5rem; }
+.blog-content img {
+  border-radius: 1rem;
+  margin: 2rem 0;
+  width: 100%;
+  object-fit: cover;
+}
+.blog-content blockquote {
+  border-left: 4px solid #E26304;
+  padding-left: 1.25rem;
+  font-style: italic;
+  opacity: 0.85;
+}
+.blog-content strong { color: #1D1D1C; font-weight: 700; }
+.blog-content code {
+  background: rgba(58, 17, 95, 0.06);
+  padding: 0.15em 0.4em;
+  border-radius: 0.35rem;
+  font-size: 0.9em;
+}

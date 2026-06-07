@@ -138,7 +138,33 @@ export default function Services() {
           ))}
         </motion.div>
 
-
+        {/* Signature offer: ₹999 Universal Car Care Voucher */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="mt-16 glass flex flex-col md:flex-row items-center justify-between gap-6 p-8 md:p-10"
+        >
+          <div className="text-center md:text-left">
+            <span className="text-[#87B21D] font-bold tracking-[0.3em] uppercase text-[11px]">
+              Signature Offer
+            </span>
+            <h3 className="text-white text-2xl md:text-3xl font-black uppercase mt-2">
+              ₹999 Universal Car Care Voucher
+            </h3>
+            <p className="text-gray-400 mt-2 max-w-xl">
+              One transparent price, designed for all makes &amp; models — doorstep
+              service done right in front of you. Excludes additional repairs &amp; parts.
+            </p>
+          </div>
+          <a
+            href="/booking"
+            className="shrink-0 bg-[#E26304] text-white px-8 py-4 font-black text-sm uppercase tracking-widest hover:brightness-110 transition-all"
+          >
+            Book for ₹999
+          </a>
+        </motion.div>
       </div>
     </section>
   );

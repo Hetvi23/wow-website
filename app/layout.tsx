@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import OfferPopup from "@/components/OfferPopup";
+import { getActiveOffer, erpFileUrl } from "@/lib/erpnext";
 import "./globals.css";
 
 const inter = Inter({
@@ -23,14 +25,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const offer = await getActiveOffer();
+
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+        <OfferPopup offer={offer} image={erpFileUrl(offer?.image)} />
+      </body>
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-XXXXXXXXXX"} />
     </html>
   );
