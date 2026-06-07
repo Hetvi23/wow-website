@@ -30,10 +30,10 @@ export default async function BookingPage() {
           <span className="text-[#E26304] font-bold tracking-[0.3em] uppercase text-xs">
             Book Online
           </span>
-          <h1 className="text-white text-5xl md:text-6xl font-black mt-3 uppercase tracking-wide">
+          <h1 className="text-white text-4xl md:text-5xl font-black mt-2 uppercase tracking-wide">
             Book a <span className="gradient-text">Service</span>
           </h1>
-          <p className="text-white/60 max-w-2xl mt-5 text-lg">
+          <p className="text-white/60 max-w-2xl mt-4">
             Tell us what your car needs and when. We&apos;ll confirm your slot by
             phone.
           </p>

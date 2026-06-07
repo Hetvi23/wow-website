@@ -33,15 +33,15 @@ export default async function LocateUsPage() {
     <main>
       <Navbar />
 
-      <section className="bg-[#1D1D1C] pt-32 pb-12 angled-clip">
+      <section className="bg-[#1D1D1C] pt-32 pb-10 angled-clip">
         <div className="max-w-7xl mx-auto px-6">
           <span className="text-[#E26304] font-bold tracking-[0.3em] uppercase text-xs">
             Find Us
           </span>
-          <h1 className="text-white text-5xl md:text-6xl font-black mt-3 uppercase tracking-wide">
+          <h1 className="text-white text-4xl md:text-5xl font-black mt-2 uppercase tracking-wide">
             Locate <span className="gradient-text">Us</span>
           </h1>
-          <p className="text-white/60 max-w-2xl mt-5 text-lg">
+          <p className="text-white/60 max-w-2xl mt-4">
             We come to you — but here&apos;s where our hubs and service areas are.
           </p>
         </div>

@@ -32,15 +32,15 @@ export default async function ProductsPage({
     <main>
       <Navbar />
 
-      <section className="bg-[#1D1D1C] pt-32 pb-12 angled-clip">
+      <section className="bg-[#1D1D1C] pt-32 pb-10 angled-clip">
         <div className="max-w-7xl mx-auto px-6">
           <span className="text-[#E26304] font-bold tracking-[0.3em] uppercase text-xs">
             Premium Care
           </span>
-          <h1 className="text-white text-5xl md:text-6xl font-black mt-3 uppercase tracking-wide">
+          <h1 className="text-white text-4xl md:text-5xl font-black mt-2 uppercase tracking-wide">
             Products &amp; <span className="gradient-text">Packages</span>
           </h1>
-          <p className="text-white/60 max-w-2xl mt-5 text-lg">
+          <p className="text-white/60 max-w-2xl mt-4">
             Curated service packages and car care essentials — all delivered to
             your doorstep.
           </p>
