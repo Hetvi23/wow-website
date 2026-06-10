@@ -86,7 +86,10 @@ export default function OfferPopup({
                 {offer.title}
               </h3>
               {offer.description && (
-                <p className="text-[#1D1D1C]/65 mt-3">{offer.description}</p>
+                <p className="text-[#1D1D1C]/65 mt-3">
+                  {offer.description}
+                  <span className="text-[#E26304] align-super text-xs">*</span>
+                </p>
               )}
               {offer.cta_label && (
                 <a
@@ -97,6 +100,9 @@ export default function OfferPopup({
                   {offer.cta_label}
                 </a>
               )}
+              <p className="mt-4 text-[11px] text-[#1D1D1C]/40">
+                *Terms &amp; conditions apply.
+              </p>
             </div>
           </motion.div>
         </motion.div>
