@@ -128,11 +128,11 @@ export default async function LocateUsPage() {
                   )}
                 </div>
 
-                <div className="rounded-2xl overflow-hidden border border-black/5 shadow-sm min-h-[320px] bg-[#3A115F]/5">
+                <div className="group rounded-2xl overflow-hidden border border-black/5 shadow-sm min-h-[320px] bg-white">
                   <iframe
                     title={`Map of ${b.branch_name}`}
                     src={mapSrc(b)}
-                    className="w-full h-full min-h-[320px]"
+                    className="w-full h-full min-h-[320px] grayscale-[0.45] contrast-[1.05] brightness-[1.02] transition duration-500 group-hover:grayscale-0"
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                   />
