@@ -20,8 +20,12 @@ function mapSrc(b: {
   city: string | null;
   pincode: string | null;
 }) {
-  // 1. A pasted Google "Embed a map" URL is the cleanest — use it as-is.
-  if (b.google_maps_url) return b.google_maps_url;
+  // 1. A pasted Google "Embed a map" value is the cleanest. Accept either the
+  //    bare src URL or the full <iframe ...> HTML (extract its src).
+  if (b.google_maps_url) {
+    const m = b.google_maps_url.match(/src=["']([^"']+)["']/i);
+    return m ? m[1] : b.google_maps_url;
+  }
 
   // 2. Prefer a textual address so Google resolves a real place. Raw lat/long
   //    embeds show a "Place info couldn't load" card; an address avoids it.
