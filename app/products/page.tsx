@@ -17,6 +17,21 @@ function priceText(p: { price: number | null; price_label: string | null }) {
   return "On Request";
 }
 
+// Item descriptions are rich text (HTML); show plain text on the cards.
+function stripHtml(html: string | null): string {
+  if (!html) return "";
+  return html
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&#39;|&rsquo;/g, "'")
+    .replace(/&quot;|&ldquo;|&rdquo;/g, '"')
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export default async function ProductsPage({
   searchParams,
 }: {
@@ -119,9 +134,9 @@ export default async function ProductsPage({
                     <h2 className="text-[#1D1D1C] text-xl font-black mt-2 group-hover:text-[#3A115F] transition-colors">
                       {p.product_name}
                     </h2>
-                    {p.short_description && (
+                    {stripHtml(p.short_description) && (
                       <p className="text-[#1D1D1C]/60 mt-2 text-sm line-clamp-2">
-                        {p.short_description}
+                        {stripHtml(p.short_description)}
                       </p>
                     )}
                     <span className="mt-5 inline-flex items-center justify-center bg-[#1D1D1C] group-hover:bg-[#E26304] text-white text-xs font-bold uppercase tracking-widest py-3 rounded-sm transition-colors">
