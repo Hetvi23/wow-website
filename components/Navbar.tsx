@@ -28,17 +28,20 @@ export default function Navbar() {
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#1D1D1C]/95 backdrop-blur-xl shadow-2xl shadow-black/30"
-          : "bg-[#1D1D1C]/70 backdrop-blur-md"
-      } border-b border-white/10`}
+          ? "bg-white/95 backdrop-blur-xl shadow-lg shadow-black/5"
+          : "bg-white/80 backdrop-blur-md"
+      } border-b border-black/5`}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center group bg-white p-1 rounded-xl shadow-xl transition-transform duration-300 hover:scale-105">
+      <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
+        {/* Logo — transparent, sits directly on the white bar */}
+        <Link
+          href="/"
+          className="flex items-center group transition-transform duration-300 hover:scale-105"
+        >
           <img
-            src="/images/wow-images/Auto_Avengers_Logo_2026.jpeg"
+            src="/images/wow-images/Auto_Avengers_Logo.png"
             alt="Auto Avengers Logo"
-            className="h-16 md:h-20 w-auto object-contain rounded-lg"
+            className="h-20 md:h-24 w-auto object-contain"
           />
         </Link>
 
@@ -48,7 +51,7 @@ export default function Navbar() {
             <Link
               key={item.label}
               href={item.href}
-              className="text-sm font-semibold text-white/70 hover:text-[#E26304] transition-colors duration-200 uppercase tracking-widest"
+              className="text-sm font-semibold text-[#1D1D1C]/70 hover:text-[#E26304] transition-colors duration-200 uppercase tracking-widest"
             >
               {item.label}
             </Link>
@@ -63,7 +66,7 @@ export default function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden text-white p-2 rounded-sm hover:bg-white/10 transition-colors"
+          className="md:hidden text-[#1D1D1C] p-2 rounded-sm hover:bg-black/5 transition-colors"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle menu"
         >
@@ -79,14 +82,14 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-[#1D1D1C]/98 backdrop-blur-xl border-t border-white/10 px-6 py-6 space-y-5"
+            className="md:hidden bg-white border-t border-black/5 px-6 py-6 space-y-5"
           >
             {navLinks.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
-                className="block text-sm font-bold text-white/80 hover:text-[#E26304] uppercase tracking-widest transition-colors"
+                className="block text-sm font-bold text-[#1D1D1C]/80 hover:text-[#E26304] uppercase tracking-widest transition-colors"
               >
                 {item.label}
               </Link>
