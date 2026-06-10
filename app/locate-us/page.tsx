@@ -17,8 +17,20 @@ function mapSrc(b: {
   longitude: number | null;
   branch_name: string;
   address: string | null;
+  city: string | null;
+  pincode: string | null;
 }) {
+  // 1. A pasted Google "Embed a map" URL is the cleanest — use it as-is.
   if (b.google_maps_url) return b.google_maps_url;
+
+  // 2. Prefer a textual address so Google resolves a real place. Raw lat/long
+  //    embeds show a "Place info couldn't load" card; an address avoids it.
+  const parts = [b.address, b.city, b.pincode].filter(Boolean).join(", ");
+  if (parts) {
+    return `https://maps.google.com/maps?q=${encodeURIComponent(parts)}&z=15&output=embed`;
+  }
+
+  // 3. Fall back to coordinates, then to the branch name.
   if (b.latitude && b.longitude) {
     return `https://maps.google.com/maps?q=${b.latitude},${b.longitude}&z=15&output=embed`;
   }
