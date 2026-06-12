@@ -27,9 +27,7 @@ export default function Navbar() {
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-xl shadow-lg shadow-black/5"
-          : "bg-white/80 backdrop-blur-md"
+        scrolled ? "bg-white shadow-lg shadow-black/5" : "bg-white"
       } border-b border-black/5`}
     >
       <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
@@ -39,7 +37,7 @@ export default function Navbar() {
           className="flex items-center group transition-transform duration-300 hover:scale-105"
         >
           <img
-            src="/images/wow-images/Auto_Avengers_Logo.png"
+            src="/images/wow-images/Auto_Avengers_Logo_2026.jpeg"
             alt="Auto Avengers Logo"
             className="h-20 md:h-24 w-auto object-contain"
           />
