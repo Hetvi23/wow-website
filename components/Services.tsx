@@ -159,10 +159,10 @@ export default function Services() {
             </p>
           </div>
           <a
-            href="/booking"
+            href="/voucher"
             className="shrink-0 bg-[#E26304] text-white px-8 py-4 font-black text-sm uppercase tracking-widest hover:brightness-110 transition-all"
           >
-            Book for ₹999
+            Buy for ₹999
           </a>
         </motion.div>
       </div>
