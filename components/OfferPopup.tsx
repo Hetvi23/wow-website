@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import { X } from "lucide-react";
 import type { Offer } from "@/lib/erpnext";
 
@@ -91,15 +92,24 @@ export default function OfferPopup({
                   <span className="text-[#E26304] align-super text-xs">*</span>
                 </p>
               )}
-              {offer.cta_label && (
-                <a
-                  href={offer.cta_link || "/booking"}
+              <div className="flex flex-wrap items-center justify-center gap-4 mt-6">
+                {offer.cta_label && (
+                  <Link
+                    href={offer.cta_link || "/booking"}
+                    onClick={close}
+                    className="inline-block bg-[#E26304] text-white px-6 py-3 font-bold text-sm uppercase tracking-widest hover:brightness-110 transition-all rounded-sm"
+                  >
+                    {offer.cta_label}
+                  </Link>
+                )}
+                <Link
+                  href="/products"
                   onClick={close}
-                  className="inline-block mt-6 bg-[#E26304] text-white px-8 py-3 font-bold text-sm uppercase tracking-widest hover:brightness-110 transition-all rounded-sm"
+                  className="inline-block border border-[#3A115F] text-[#3A115F] hover:bg-[#3A115F] hover:text-white px-6 py-3 font-bold text-sm uppercase tracking-widest transition-all rounded-sm"
                 >
-                  {offer.cta_label}
-                </a>
-              )}
+                  Product Details
+                </Link>
+              </div>
               <p className="mt-4 text-[11px] text-[#1D1D1C]/40">
                 *Terms &amp; conditions apply.
               </p>

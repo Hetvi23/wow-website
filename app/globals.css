@@ -19,6 +19,7 @@ body {
   background-color: #FDFDFD;
   color: #1D1D1C;
   overflow-x: hidden;
+  font-size: 1.025rem;
 }
 
 ::selection {
@@ -128,7 +129,7 @@ body {
 /* Rendered blog post body (HTML from ERPNext Text Editor) */
 .blog-content {
   color: #2a2a28;
-  font-size: 1.075rem;
+  font-size: 1.125rem;
   line-height: 1.85;
 }
 .blog-content h2 {
@@ -176,4 +177,16 @@ body {
   padding: 0.15em 0.4em;
   border-radius: 0.35rem;
   font-size: 0.9em;
+}
+.blog-content mark,
+.blog-content .highlight {
+  background-color: #ffe066 !important;
+  color: #1d1d1c !important;
+  padding: 0.12em 0.25em;
+  border-radius: 0.25rem;
+}
+.blog-content span[style*="background-color"] {
+  padding: 0.12em 0.25em;
+  border-radius: 0.25rem;
+  display: inline;
 }

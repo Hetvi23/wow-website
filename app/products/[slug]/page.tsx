@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import SiteFooter from "@/components/SiteFooter";
+import ProductGallery from "@/components/ProductGallery";
 import { getProduct, erpFileUrl } from "@/lib/erpnext";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -34,6 +35,13 @@ export default async function ProductDetail({ params }: Props) {
   if (!p) notFound();
 
   const img = erpFileUrl(p.image);
+  const images = [
+    img,
+    "/images/Web_Sec2_Door.png",
+    "/images/Web_Sec2_CW.png",
+    "/images/Web_Sec2_EC.png",
+  ].filter(Boolean) as string[];
+
   const price = p.price_label || (p.price ? `₹${p.price.toLocaleString("en-IN")}` : "On Request");
   const description = p.description || p.short_description;
 
@@ -61,41 +69,35 @@ export default async function ProductDetail({ params }: Props) {
       </section>
 
       <section className="max-w-5xl mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-2 gap-12 items-start">
-          <div className="bg-[#3A115F]/5 rounded-2xl overflow-hidden border border-black/5">
-            {img ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={img} alt={p.product_name} className="w-full object-cover" />
-            ) : (
-              <div className="aspect-[4/3] flex items-center justify-center text-[#3A115F]/25 font-black text-3xl tracking-widest">
-                WOW
-              </div>
-            )}
+        <div className="block flow-root">
+          <div className="w-full md:w-[48%] md:float-left mb-8 md:mr-8 md:mb-6">
+            <ProductGallery images={images} productName={p.product_name} />
           </div>
 
-          <div>
-            <span className="text-[#E26304] font-bold tracking-[0.2em] uppercase text-[11px]">
+          <div className="text-[#1D1D1C]">
+            <span className="text-[#E26304] font-bold tracking-[0.2em] uppercase text-[11px] block">
               Price
             </span>
-            <div className="mt-1 text-[#3A115F] font-black text-4xl">{price}</div>
+            <div className="mt-1 text-[#3A115F] font-black text-4xl mb-6">{price}</div>
 
             {description && (
               <div
-                className="blog-content mt-8"
+                className="blog-content leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: description }}
               />
             )}
 
-            <Link
-              href="/booking"
-              className="inline-block mt-10 bg-[#E26304] text-white px-8 py-3.5 font-bold text-sm uppercase tracking-widest hover:brightness-110 transition-all rounded-sm"
-            >
-              Book This Service
-            </Link>
-
-            <p className="mt-6 text-[#1D1D1C]/45 text-sm">
-              Prefer to talk first? Call us and our team will guide you.
-            </p>
+            <div className="mt-8 clear-both md:clear-none">
+              <Link
+                href="/booking"
+                className="inline-block bg-[#E26304] text-white px-8 py-3.5 font-bold text-sm uppercase tracking-widest hover:brightness-110 transition-all rounded-sm"
+              >
+                Book This Service
+              </Link>
+              <p className="mt-4 text-[#1D1D1C]/45 text-sm">
+                Prefer to talk first? Call us and our team will guide you.
+              </p>
+            </div>
           </div>
         </div>
       </section>

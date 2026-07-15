@@ -5,23 +5,57 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 import type { BookingOptions } from "@/lib/erpnext";
 
+// Today's date in the visitor's local timezone as YYYY-MM-DD, used as the
+// `min` for the date picker so past dates can't be selected.
+function todayStr() {
+  const d = new Date();
+  const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
+  return local.toISOString().split("T")[0];
+}
+
 export default function BookingForm({ options }: { options: BookingOptions }) {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const today = todayStr();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
-    setLoading(true);
     setError(null);
 
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries()) as Record<string, string>;
 
-    if (data.phone && !data.phone.startsWith("+")) {
-      data.phone = `+91${data.phone.trim()}`;
+    // Validate the phone number before hitting the backend so a bad number
+    // shows a clear message here instead of a silent submit failure.
+    const digits = (data.phone || "").replace(/\D/g, "").replace(/^91/, "");
+    if (!/^\d{10}$/.test(digits)) {
+      setError("Please enter a valid 10-digit mobile number.");
+      return;
     }
+
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email || "")) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    // Mandatory field validation
+    if (!data.customer_name?.trim() || !data.phone?.trim() || !data.email?.trim() || !data.vehicle_model?.trim()) {
+      setError("Please fill in all mandatory fields (Name, Phone, Email Address, and Car Model).");
+      return;
+    }
+
+    // Guard against a past date even if the browser's date picker is bypassed.
+    if (data.preferred_date && data.preferred_date < today) {
+      setError("Preferred date cannot be in the past.");
+      return;
+    }
+
+    data.phone = `+91${digits}`;
+    setLoading(true);
 
     try {
       const res = await fetch("/api/webform", {
@@ -33,7 +67,14 @@ export default function BookingForm({ options }: { options: BookingOptions }) {
         setSubmitted(true);
         form.reset();
       } else {
-        setError("Something went wrong. Please call us or try again.");
+        let msg = "Something went wrong. Please call us or try again.";
+        try {
+          const body = await res.json();
+          if (body?.error) msg = body.error;
+        } catch {
+          /* keep the generic message */
+        }
+        setError(msg);
       }
     } catch {
       setError("Network error. Please try again.");
@@ -84,8 +125,8 @@ export default function BookingForm({ options }: { options: BookingOptions }) {
           <input name="phone" required type="tel" className={inputCls} placeholder="10-digit mobile" />
         </div>
         <div>
-          <label className={labelCls}>Email</label>
-          <input name="email" type="email" className={inputCls} placeholder="you@email.com" />
+          <label className={labelCls}>Email Address *</label>
+          <input name="email" type="email" required className={inputCls} placeholder="you@email.com" />
         </div>
         <div>
           <label className={labelCls}>Service Type *</label>
@@ -116,8 +157,8 @@ export default function BookingForm({ options }: { options: BookingOptions }) {
           )}
         </div>
         <div>
-          <label className={labelCls}>Vehicle Model</label>
-          <input name="vehicle_model" className={inputCls} placeholder="e.g. City" />
+          <label className={labelCls}>Car Model *</label>
+          <input name="vehicle_model" required className={inputCls} placeholder="e.g. City" />
         </div>
         <div>
           <label className={labelCls}>Registration No</label>
@@ -125,7 +166,7 @@ export default function BookingForm({ options }: { options: BookingOptions }) {
         </div>
         <div>
           <label className={labelCls}>Preferred Date</label>
-          <input name="preferred_date" type="date" className={inputCls} />
+          <input name="preferred_date" type="date" min={today} className={inputCls} />
         </div>
         <div>
           <label className={labelCls}>Preferred Time Slot</label>
@@ -140,7 +181,19 @@ export default function BookingForm({ options }: { options: BookingOptions }) {
         </div>
         <div>
           <label className={labelCls}>Pincode</label>
-          <input name="pincode" className={inputCls} placeholder="396191" />
+          <input
+            name="pincode"
+            inputMode="numeric"
+            maxLength={6}
+            pattern="\d{6}"
+            title="Pincode must be exactly 6 digits"
+            onInput={(e) => {
+              const el = e.currentTarget;
+              el.value = el.value.replace(/\D/g, "").slice(0, 6);
+            }}
+            className={inputCls}
+            placeholder="396191"
+          />
         </div>
         <div className="sm:col-span-2">
           <label className={labelCls}>Address</label>

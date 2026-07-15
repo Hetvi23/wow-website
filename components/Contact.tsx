@@ -7,19 +7,39 @@ import { CheckCircle2, X } from "lucide-react";
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
-    setLoading(true);
+    setError(null);
 
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+    const data = Object.fromEntries(formData.entries()) as Record<string, string>;
 
-    // Ensure phone number has country code for ERPNext validation
-    if (typeof data.phone === 'string' && !data.phone.startsWith('+')) {
-      data.phone = `+91${data.phone.trim()}`;
+    // Validate the phone number and show a clear error if it isn't a proper
+    // 10-digit mobile number.
+    const digits = (data.phone || '').replace(/\D/g, '').replace(/^91/, '');
+    if (!/^\d{10}$/.test(digits)) {
+      setError('Please enter a valid 10-digit mobile number.');
+      return;
     }
+    data.phone = `+91${digits}`;
+
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email || '')) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    // Mandatory field validation
+    if (!data.lead_name?.trim() || !data.phone?.trim() || !data.email?.trim() || !data.car_model?.trim()) {
+      setError('Please fill in all mandatory fields (Name, Phone, Email, and Car Model).');
+      return;
+    }
+
+    setLoading(true);
 
     try {
       const response = await fetch('/api/webform', {
@@ -27,16 +47,24 @@ export default function Contact() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ web_form: 'wow-contact', data })
       });
-      
+
       if (response.ok) {
         setSubmitted(true);
         form.reset();
         setTimeout(() => setSubmitted(false), 5000);
       } else {
-        console.error('Failed to submit form');
+        let msg = 'Something went wrong. Please call us or try again.';
+        try {
+          const body = await response.json();
+          if (body?.error) msg = body.error;
+        } catch {
+          /* keep the generic message */
+        }
+        setError(msg);
       }
-    } catch (error) {
-      console.error('Submission error:', error);
+    } catch (err) {
+      console.error('Submission error:', err);
+      setError('Network error. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -71,7 +99,7 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
-                  Name
+                  Name *
                 </label>
                 <input
                   name="lead_name"
@@ -83,7 +111,7 @@ export default function Contact() {
               </div>
               <div>
                 <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
-                  Phone Number
+                  Phone Number *
                 </label>
                 <input
                   name="phone"
@@ -95,7 +123,19 @@ export default function Contact() {
               </div>
               <div>
                 <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
-                  Car Model
+                  Email Address *
+                </label>
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="you@email.com"
+                  className="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-[#E26304] outline-none transition-all font-semibold rounded-t-lg"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
+                  Car Model *
                 </label>
                 <input
                   name="car_model"
@@ -129,6 +169,10 @@ export default function Contact() {
                   className="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-[#E26304] outline-none transition-all font-semibold resize-none rounded-t-lg"
                 />
               </div>
+
+              {error && (
+                <p className="text-red-600 text-sm font-semibold">{error}</p>
+              )}
 
               <button
                 type="submit"
@@ -165,8 +209,8 @@ export default function Contact() {
                   <span className="text-white/60 text-xs uppercase tracking-widest font-bold">Support</span>
                 </div>
                 <div className="bg-white/10 p-4 rounded-xl">
-                  <span className="block text-2xl font-black text-[#E26304]">30m</span>
-                  <span className="text-white/60 text-xs uppercase tracking-widest font-bold">Response</span>
+                  <span className="block text-xl md:text-2xl font-black text-[#E26304]">30 Minutes</span>
+                  <span className="text-white/60 text-[10px] md:text-xs uppercase tracking-widest font-bold">Response Time</span>
                 </div>
               </div>
             </div>
