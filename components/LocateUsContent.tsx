@@ -4,36 +4,6 @@ import { useState } from "react";
 import { MapPin, Phone, Mail, Clock, Navigation } from "lucide-react";
 import type { Branch } from "@/lib/erpnext";
 
-// Mock data for Our Planet (Franchises & Partners)
-const PARTNERS: Branch[] = [
-  {
-    branch_name: "Mumbai West Franchise",
-    phone: "+91 96386 20000",
-    email: "mumbai.west@autoavengers.com",
-    address: "Andheri West Link Road",
-    city: "Mumbai",
-    pincode: "400053",
-    working_hours: "Mon-Sun 8am-8pm",
-    service_areas: "Andheri, Bandra, Juhu, and Borivali",
-    latitude: 19.1136,
-    longitude: 72.8697,
-    google_maps_url: null,
-  },
-  {
-    branch_name: "Ahmedabad Satellite Partner",
-    phone: "+91 96386 30000",
-    email: "ahmedabad.sat@autoavengers.com",
-    address: "Satellite Road, Near ISKCON Temple",
-    city: "Ahmedabad",
-    pincode: "380015",
-    working_hours: "Mon-Sat 9am-7pm",
-    service_areas: "Satellite, Vastrapur, and Bodakdev",
-    latitude: 23.0225,
-    longitude: 72.5714,
-    google_maps_url: null,
-  }
-];
-
 function mapSrc(b: Branch) {
   if (b.google_maps_url) {
     const m = b.google_maps_url.match(/src=["']([^"']+)["']/i);
@@ -60,7 +30,11 @@ function directionsUrl(b: Branch) {
 export default function LocateUsContent({ branches }: { branches: Branch[] }) {
   const [tab, setTab] = useState<"pit-stop" | "our-planet">("pit-stop");
 
-  const displayedLocations = tab === "pit-stop" ? branches : PARTNERS;
+  // Partners/franchises are flagged branch_type = "Partner" in ERPNext; everything
+  // else (including legacy rows with no type) shows under Avenger Pit Stop.
+  const pitStops = branches.filter((b) => b.branch_type !== "Partner");
+  const partners = branches.filter((b) => b.branch_type === "Partner");
+  const displayedLocations = tab === "pit-stop" ? pitStops : partners;
 
   return (
     <div className="space-y-10">

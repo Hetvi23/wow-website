@@ -4,48 +4,25 @@ import { useState } from "react";
 import { Star, Play, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-interface Testimonial {
+export interface TestimonialCard {
   id: string;
   name: string;
   role: string;
   rating: number;
   review: string;
-  image: string;
-  videoUrl: string | null;
+  image: string | null;
+  videoUrl: string | null; // YouTube embed URL
 }
 
-const TESTIMONIALS: Testimonial[] = [
-  {
-    id: "1",
-    name: "Rajesh Patel",
-    role: "Honda City Owner",
-    rating: 5,
-    review: "Absolutely outstanding service! The convenience of a doorstep car service done right in front of me is unmatched. Highly recommend Auto Avengers.",
-    image: "/images/Web_Sec2_CW.png",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Demonstration video URL
-  },
-  {
-    id: "2",
-    name: "Sneha Sharma",
-    role: "Hyundai i20 Owner",
-    rating: 5,
-    review: "The technicians were super professional, explained everything clearly, and finished the maintenance in under an hour. Outstanding value!",
-    image: "/images/Web_Sec2_Door.png",
-    videoUrl: null,
-  },
-  {
-    id: "3",
-    name: "Vikram Shah",
-    role: "BMW 3 Series Owner",
-    rating: 5,
-    review: "Excellent premium care. Safe, prompt, and high quality. The 24/7 roadside assistance gave me complete peace of mind on my highway trip.",
-    image: "/images/Web_Sec2_EC.png",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-  },
-];
-
-export default function Testimonials() {
+export default function Testimonials({
+  testimonials,
+}: {
+  testimonials: TestimonialCard[];
+}) {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
+  // Nothing to show yet — don't render an empty dark band.
+  if (!testimonials || testimonials.length === 0) return null;
 
   return (
     <section className="py-24 bg-[#1D1D1C] relative overflow-hidden">
@@ -67,16 +44,22 @@ export default function Testimonials() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {TESTIMONIALS.map((t) => (
+          {testimonials.map((t) => (
             <div
               key={t.id}
               className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 flex flex-col justify-between transition-transform duration-300 hover:-translate-y-2"
             >
               <div>
                 <div className="flex gap-1 mb-6">
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <Star key={i} size={16} className="fill-[#E26304] text-[#E26304]" />
-                  ))}
+                  {Array.from({ length: Math.max(0, Math.min(5, t.rating)) }).map(
+                    (_, i) => (
+                      <Star
+                        key={i}
+                        size={16}
+                        className="fill-[#E26304] text-[#E26304]"
+                      />
+                    )
+                  )}
                 </div>
 
                 <p className="text-white/80 italic leading-relaxed text-sm mb-8">
@@ -86,13 +69,25 @@ export default function Testimonials() {
 
               <div className="flex items-center justify-between mt-auto">
                 <div className="flex items-center gap-3">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#E26304]/30">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={t.image} alt={t.name} className="w-full h-full object-cover" />
+                  <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#E26304]/30 bg-[#3A115F] flex items-center justify-center shrink-0">
+                    {t.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={t.image}
+                        alt={t.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span className="text-white font-black text-sm">
+                        {t.name.trim().charAt(0).toUpperCase()}
+                      </span>
+                    )}
                   </div>
                   <div>
                     <h4 className="text-white font-bold text-sm">{t.name}</h4>
-                    <span className="text-white/50 text-xs">{t.role}</span>
+                    {t.role && (
+                      <span className="text-white/50 text-xs">{t.role}</span>
+                    )}
                   </div>
                 </div>
 

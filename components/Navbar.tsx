@@ -14,6 +14,9 @@ const navLinks: { label: string; href: string }[] = [
   { label: "Locate Us", href: "/locate-us" },
 ];
 
+// The ERP handles authentication; after login users land on role-based modules.
+const ERP_LOGIN_URL = "https://care.autoavengers.com/login";
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -54,6 +57,12 @@ export default function Navbar() {
               {item.label}
             </Link>
           ))}
+          <a
+            href={ERP_LOGIN_URL}
+            className="text-sm font-semibold text-[#1D1D1C]/70 hover:text-[#E26304] transition-colors duration-200 uppercase tracking-widest"
+          >
+            Login
+          </a>
           <Link
             href="/booking"
             className="bg-[#E26304] text-white px-6 py-2.5 font-bold text-sm uppercase tracking-widest hover:brightness-110 hover:scale-105 transition-all duration-200 shadow-lg shadow-orange-900/20"
@@ -92,6 +101,13 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
+            <a
+              href={ERP_LOGIN_URL}
+              onClick={() => setIsMenuOpen(false)}
+              className="block text-sm font-bold text-[#1D1D1C]/80 hover:text-[#E26304] uppercase tracking-widest transition-colors"
+            >
+              Login
+            </a>
             <Link
               href="/booking"
               onClick={() => setIsMenuOpen(false)}

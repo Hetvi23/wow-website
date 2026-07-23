@@ -241,6 +241,8 @@ export function getActiveOffer() {
 
 export type Branch = {
   branch_name: string;
+  // "Pit Stop" (own branch) or "Partner" (franchise) — drives the Locate Us tabs.
+  branch_type?: string | null;
   phone: string | null;
   email: string | null;
   address: string | null;
@@ -270,6 +272,12 @@ export type SiteSettings = {
   youtube_url?: string | null;
   twitter_url?: string | null;
   show_offer_popup?: boolean;
+  // Bank / UPI details shown on the Pay Now step of the ₹999 voucher flow.
+  bank_account_name?: string | null;
+  bank_account_number?: string | null;
+  bank_ifsc?: string | null;
+  bank_name?: string | null;
+  upi_id?: string | null;
 };
 
 export function getSiteSettings() {
@@ -289,5 +297,39 @@ export function getBookingOptions() {
     service_types: [],
     time_slots: [],
     makes: [],
+  });
+}
+
+// --- Testimonials (admin-managed) ------------------------------------------
+
+export type Testimonial = {
+  name: string;
+  customer_name: string;
+  role: string | null;
+  rating: number | null;
+  review: string | null;
+  image: string | null;
+  video_url: string | null;
+};
+
+export function getTestimonials() {
+  return getMethod<Testimonial[]>("testimonials", undefined, []);
+}
+
+// --- ₹999 Voucher package details ------------------------------------------
+
+export type VoucherPackage = {
+  services: { title: string; description: string | null }[];
+  benefits: string | null; // HTML (rich text from ERPNext)
+  terms: string | null; // HTML
+  price: number | null;
+};
+
+export function getVoucherPackage() {
+  return getMethod<VoucherPackage>("voucher_package", undefined, {
+    services: [],
+    benefits: null,
+    terms: null,
+    price: 999,
   });
 }

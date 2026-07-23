@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   CheckCircle2,
@@ -9,29 +10,50 @@ import {
   Upload,
   ArrowLeft,
   ArrowRight,
+  Home,
+  FileText,
+  Landmark,
+  Copy,
+  Check,
 } from "lucide-react";
 
-// Voucher / payment details. QR_SRC is the scan-to-pay image served from /public.
+// Voucher / payment details. QR_SRC is the scan-to-pay image served from ERPNext.
 const AMOUNT = 999;
 const SUPPORT_PHONE = "9638610000";
 const QR_SRC = "https://care.autoavengers.com/files/Bank_QR%20(1).png";
 
+// Bank / UPI details are managed in ERPNext (WOW Website Settings) and passed in.
+export type BankDetails = {
+  account_name?: string | null;
+  account_number?: string | null;
+  ifsc?: string | null;
+  bank_name?: string | null;
+  upi_id?: string | null;
+};
+
 type Step = "details" | "choose" | "pay-now" | "done";
 
-export default function VoucherForm() {
+export default function VoucherForm({ bank }: { bank?: BankDetails }) {
   const [step, setStep] = useState<Step>("details");
   const [fullName, setFullName] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [proof, setProof] = useState<File | null>(null);
+  const [txnId, setTxnId] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [resultStatus, setResultStatus] = useState<string>("");
+  const [bookingId, setBookingId] = useState<string>("");
+  const [copied, setCopied] = useState(false);
 
   const inputCls =
     "w-full px-4 py-3 rounded-lg border border-[#3A115F]/15 focus:border-[#E26304] focus:ring-2 focus:ring-[#E26304]/20 outline-none transition-colors bg-white";
   const labelCls =
     "block text-[#1D1D1C] text-xs font-bold uppercase tracking-wider mb-2";
+
+  const hasBankDetails = Boolean(
+    bank && (bank.account_number || bank.upi_id || bank.ifsc)
+  );
 
   function detailsValid() {
     return fullName.trim() !== "" && mobile.trim() !== "";
@@ -52,6 +74,10 @@ export default function VoucherForm() {
       setError("Please upload your payment screenshot first.");
       return;
     }
+    if (choice === "now" && txnId.trim() === "") {
+      setError("Please enter your payment Transaction ID.");
+      return;
+    }
     setLoading(true);
     setError(null);
 
@@ -61,11 +87,23 @@ export default function VoucherForm() {
     fd.append("mobile", m.startsWith("+") ? m : `+91${m}`);
     fd.append("email", email.trim());
     fd.append("payment_choice", choice);
-    if (choice === "now" && proof) fd.append("payment_proof", proof);
+    if (choice === "now") {
+      fd.append("transaction_id", txnId.trim());
+      if (proof) fd.append("payment_proof", proof);
+    }
 
     try {
       const res = await fetch("/api/voucher", { method: "POST", body: fd });
       if (res.ok) {
+        // ERPNext wraps the method return under `message`; the route handler
+        // wraps that again under `data`. Booking ID is the request docname.
+        const json = await res.json().catch(() => null);
+        const id =
+          json?.data?.message?.data?.name ??
+          json?.data?.data?.name ??
+          json?.data?.name ??
+          "";
+        setBookingId(id);
         setResultStatus(
           choice === "now"
             ? "We've received your payment proof. Our team will verify and confirm your voucher shortly."
@@ -80,6 +118,14 @@ export default function VoucherForm() {
     } finally {
       setLoading(false);
     }
+  }
+
+  function copyBookingId() {
+    if (!bookingId) return;
+    navigator.clipboard?.writeText(bookingId).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    });
   }
 
   const fade = {
@@ -231,7 +277,7 @@ export default function VoucherForm() {
           </motion.div>
         )}
 
-        {/* STEP 3 — Pay Now: instructions + upload */}
+        {/* STEP 3 — Pay Now: QR + bank details + upload + transaction id */}
         {step === "pay-now" && (
           <motion.div key="pay-now" {...fade} className="grid gap-5">
             <button
@@ -258,10 +304,79 @@ export default function VoucherForm() {
                   Scan to pay ₹{AMOUNT}
                 </span>
               </div>
+
+              {/* Bank details (admin-managed in ERPNext) */}
+              {hasBankDetails && (
+                <div className="mt-6 pt-6 border-t border-[#3A115F]/10">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Landmark size={16} className="text-[#E26304]" />
+                    <span className="text-[#3A115F] text-xs font-bold uppercase tracking-wider">
+                      Bank Transfer Details
+                    </span>
+                  </div>
+                  <dl className="grid gap-1.5 text-sm">
+                    {bank?.account_name && (
+                      <div className="flex justify-between gap-4">
+                        <dt className="text-[#1D1D1C]/50">Account Name</dt>
+                        <dd className="text-[#1D1D1C] font-semibold text-right">
+                          {bank.account_name}
+                        </dd>
+                      </div>
+                    )}
+                    {bank?.account_number && (
+                      <div className="flex justify-between gap-4">
+                        <dt className="text-[#1D1D1C]/50">Account No.</dt>
+                        <dd className="text-[#1D1D1C] font-semibold text-right">
+                          {bank.account_number}
+                        </dd>
+                      </div>
+                    )}
+                    {bank?.ifsc && (
+                      <div className="flex justify-between gap-4">
+                        <dt className="text-[#1D1D1C]/50">IFSC</dt>
+                        <dd className="text-[#1D1D1C] font-semibold text-right">
+                          {bank.ifsc}
+                        </dd>
+                      </div>
+                    )}
+                    {bank?.bank_name && (
+                      <div className="flex justify-between gap-4">
+                        <dt className="text-[#1D1D1C]/50">Bank</dt>
+                        <dd className="text-[#1D1D1C] font-semibold text-right">
+                          {bank.bank_name}
+                        </dd>
+                      </div>
+                    )}
+                    {bank?.upi_id && (
+                      <div className="flex justify-between gap-4">
+                        <dt className="text-[#1D1D1C]/50">UPI ID</dt>
+                        <dd className="text-[#1D1D1C] font-semibold text-right">
+                          {bank.upi_id}
+                        </dd>
+                      </div>
+                    )}
+                  </dl>
+                </div>
+              )}
+
               <p className="text-[#1D1D1C]/50 text-xs pt-4 leading-relaxed text-center">
-                Scan the QR with any UPI app to pay ₹{AMOUNT}, then upload the
-                payment screenshot below. Need help? Call {SUPPORT_PHONE}.
+                Pay ₹{AMOUNT} by scanning the QR or via bank transfer, then enter
+                your Transaction ID and upload the screenshot below. Need help?
+                Call {SUPPORT_PHONE}.
               </p>
+            </div>
+
+            <div>
+              <label className={labelCls}>Transaction ID / UTR *</label>
+              <input
+                value={txnId}
+                onChange={(e) => {
+                  setError(null);
+                  setTxnId(e.target.value);
+                }}
+                className={inputCls}
+                placeholder="e.g. UPI ref / UTR number"
+              />
             </div>
 
             <div>
@@ -297,19 +412,57 @@ export default function VoucherForm() {
           </motion.div>
         )}
 
-        {/* DONE */}
+        {/* DONE — success screen with Booking ID + actions */}
         {step === "done" && (
           <motion.div
             key="done"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="flex flex-col items-center justify-center text-center py-10"
+            className="flex flex-col items-center justify-center text-center py-8"
           >
             <CheckCircle2 size={64} className="text-[#87B21D]" />
             <h3 className="text-[#3A115F] text-2xl font-black mt-4 uppercase">
               Request Received!
             </h3>
             <p className="text-[#1D1D1C]/60 mt-2 max-w-sm">{resultStatus}</p>
+
+            {bookingId && (
+              <div className="mt-6 w-full max-w-xs rounded-xl border-2 border-dashed border-[#87B21D]/40 bg-[#87B21D]/5 px-5 py-4">
+                <p className="text-[#1D1D1C]/50 text-[11px] font-bold uppercase tracking-wider">
+                  Your Booking ID
+                </p>
+                <div className="flex items-center justify-center gap-2 mt-1">
+                  <span className="text-[#3A115F] text-lg font-black tracking-wide">
+                    {bookingId}
+                  </span>
+                  <button
+                    onClick={copyBookingId}
+                    className="text-[#3A115F]/50 hover:text-[#E26304] transition-colors"
+                    aria-label="Copy booking ID"
+                  >
+                    {copied ? <Check size={16} /> : <Copy size={16} />}
+                  </button>
+                </div>
+                <p className="text-[#1D1D1C]/40 text-[11px] mt-1">
+                  Keep this for reference.
+                </p>
+              </div>
+            )}
+
+            <div className="flex flex-col sm:flex-row gap-3 mt-8 w-full max-w-md">
+              <Link
+                href="/"
+                className="flex-1 inline-flex items-center justify-center gap-2 bg-[#3A115F] text-white py-3.5 font-bold uppercase tracking-widest text-sm hover:brightness-125 transition-all rounded-sm"
+              >
+                <Home size={16} /> Go to Home
+              </Link>
+              <Link
+                href="/voucher/details"
+                className="flex-1 inline-flex items-center justify-center gap-2 bg-[#E26304] text-white py-3.5 font-bold uppercase tracking-widest text-sm hover:brightness-110 transition-all rounded-sm"
+              >
+                <FileText size={16} /> View Product Details
+              </Link>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -3,6 +3,7 @@ import { ShieldCheck, Car, BadgeIndianRupee } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import SiteFooter from "@/components/SiteFooter";
 import VoucherForm from "@/components/VoucherForm";
+import { getSiteSettings } from "@/lib/erpnext";
 
 export const metadata: Metadata = {
   title: "₹999 Car Care Voucher | Auto Avengers",
@@ -17,7 +18,16 @@ const perks = [
   { Icon: ShieldCheck, label: "Certified technicians" },
 ];
 
-export default function VoucherPage() {
+export default async function VoucherPage() {
+  const settings = await getSiteSettings();
+  const bank = {
+    account_name: settings.bank_account_name,
+    account_number: settings.bank_account_number,
+    ifsc: settings.bank_ifsc,
+    bank_name: settings.bank_name,
+    upi_id: settings.upi_id,
+  };
+
   return (
     <main>
       <Navbar />
@@ -47,7 +57,7 @@ export default function VoucherPage() {
 
       <section className="relative z-10 max-w-2xl mx-auto px-6 mt-16 pb-24">
         <div className="bg-white rounded-2xl border border-black/5 shadow-xl p-8 md:p-10">
-          <VoucherForm />
+          <VoucherForm bank={bank} />
         </div>
       </section>
 
